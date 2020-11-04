@@ -1,0 +1,32 @@
+<aura:component access="global"  implements="lightning:availableForFlowScreens" controller="AccountResearch">
+  <aura:attribute name="canFinish" type="Boolean" />
+ 
+  
+  <aura:attribute name="Account" type="Account" default="" access="global"/>
+  <aura:attribute name="accountName" type="String" default=""/>
+  <aura:attribute name="processing" type="boolean" default="false"/>
+  <aura:attribute name="noFound" type="boolean" default="true"/>
+  <aura:attribute name="record" type="Integer" default="true"/>
+
+  <div>
+    <lightning:input name="accountName" value="{! v.accountName }" label="Enter Account name"/>
+
+    <lightning:button aura:id="find" label="Find"
+                      variant="brand" onclick="{!c.submitAccountName}"/>
+  </div>
+  
+  <aura:if isTrue="{ !v.processing }">
+    <p>Processing your request</p>
+  </aura:if>
+
+  <div>
+    <lightning:button aura:id="FINISH" label="Cancel"
+      variant="brand" onclick="{!c.onCancelPressed}"/>
+    <lightning:button aura:id="NEXT" label="Create new Account"
+      variant="brand" onclick="{!c.onCreatePressed}"/>
+    <lightning:button aura:id="NEXT" label="Confirm Account"
+      variant="brand" disabled="{!v.noFound}" onclick="{!c.onConfirmPressed}"/>
+  </div>
+
+  <lightning:flow aura:id="flowData" />
+</aura:component>

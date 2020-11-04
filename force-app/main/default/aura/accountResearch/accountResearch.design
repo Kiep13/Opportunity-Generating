@@ -1,0 +1,3 @@
+<design:component label="Hello World">
+   <design:attribute name="Account" label="Account" />
+</design:component>

@@ -32,5 +32,9 @@
         <members>*</members>
         <name>StaticResource</name>
     </types>
+    <types>
+        <members>OpportunityGenerating</members>
+        <name>FlowCategory</name>
+    </types>
     <version>50.0</version>
 </Package>
