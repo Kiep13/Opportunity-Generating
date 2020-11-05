@@ -1,18 +1,8 @@
-# Salesforce DX Project: Next Steps
+# Opportunity & Products Managment
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+You need to create action which will be generate Opportunity with products. All generation process should be divide on several steps. It is assumed that the number of stages can be increased and new ones added or the order of existing ones changed. Add the ability to undo changes when creating an Opportunity, i.e. do not commit data to the database until the final stage is completed.
 
-## How Do You Plan to Deploy Your Changes?
-
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
-
-## Configure Your Salesforce DX Project
-
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
-
-## Read All About It
-
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+List of necessarily steps
+1. Account From. Case for showing this step - Org havn't such Account.
+2. Opportunity form for fill data about opportunity.
+3. Opportunity Products form for products creating.
