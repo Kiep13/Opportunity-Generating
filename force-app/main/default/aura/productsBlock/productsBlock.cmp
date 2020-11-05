@@ -10,8 +10,14 @@
   <div class="Create Product">
     <lightning:card title="Create Product">
         <div class="slds-p-horizontal--small">
-            <lightning:input aura:id="contactField" label="Product Name" value="{!v.Product.Name}"/>
-            <lightning:input type="number" aura:id="contactField" label="Total Amount" value="{!v.Product.TotalAmount}" formatter="currency" step="0.01"/>
+            <lightning:input aura:id="field" label="Product Name" 
+                            value="{!v.Product.Name}" required="true"/>
+            <lightning:input aura:id="field" type="number" 
+                            label="Total Price" value="{!v.Product.TotalPrice}" 
+                            formatter="currency" step="0.01" min="0.01" required="true"/>
+            <lightning:input aura:id="field" type="number" 
+                            label="Quantity" value="{!v.Product.Quantity}" 
+                            step="0.01" min="0.01" required="true"/>
             <lightning:button label="Add product" variant="brand" onclick="{!c.handleSaveProduct}"/>
         </div>
     </lightning:card>

@@ -8,4 +8,9 @@ public with sharing class ProductBlockController {
     public static List<OpportunityLineItem> createListProducts() {
         return new List<OpportunityLineItem>();
     }
+
+    @AuraEnabled
+    public static PricebookEntry getPricebookEntry() {
+        return [ SELECT Id FROM PricebookEntry LIMIT 1 ];
+    }
 }
