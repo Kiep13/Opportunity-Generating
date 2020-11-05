@@ -1,0 +1,4 @@
+<design:component label="Products">
+   <design:attribute name="Product" label="Product"/>
+   <design:attribute name="Products" label="Products"/>
+</design:component>

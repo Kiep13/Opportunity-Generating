@@ -1,0 +1,28 @@
+<aura:component access="global"  implements="lightning:availableForFlowScreens" controller="ProductBlockController">
+
+  <aura:attribute name="Product" type="OpportunityLineItem" default="" access="global"/>
+  <aura:attribute name="Products" type="OpportunityLineItem[]" default="" access="global"/>
+
+  <aura:attribute name="columns" type="List"/>
+
+  <aura:handler  name="init" value="{!this}" action="{!c.init}"/>
+
+  <div class="Create Product">
+    <lightning:card title="Create Product">
+        <div class="slds-p-horizontal--small">
+            <lightning:input aura:id="contactField" label="Product Name" value="{!v.Product.Name}"/>
+            <lightning:input type="number" aura:id="contactField" label="Total Amount" value="{!v.Product.TotalAmount}" formatter="currency" step="0.01"/>
+            <lightning:button label="Add product" variant="brand" onclick="{!c.handleSaveProduct}"/>
+        </div>
+    </lightning:card>
+    <lightning:card title="Products">
+        <div class="slds-p-horizontal--small">
+          <lightning:datatable
+          keyField="id"
+          data="{! v.Products }"
+          columns="{! v.columns }"
+          hideCheckboxColumn="true"/>
+        </div>
+    </lightning:card>
+  </div>
+</aura:component>	

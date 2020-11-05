@@ -33,6 +33,47 @@
             <targetReference>Create_Opportunity</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>Set_Account_Id_In_Oppotunity_0</name>
+        <label>Set Account Id In Oppotunity</label>
+        <locationX>325</locationX>
+        <locationY>1862</locationY>
+        <assignmentItems>
+            <assignToReference>Opportunity.AccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Account.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Save_Opportunity_0</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Do_Need_Create_Account</name>
+        <label>Do Need Create Account</label>
+        <locationX>325</locationX>
+        <locationY>1526</locationY>
+        <defaultConnector>
+            <targetReference>Set_Account_Id_In_Oppotunity_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Do_Need_Create_Account_True</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Account.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Account</targetReference>
+            </connector>
+            <label>Do Need Create Account True</label>
+        </rules>
+    </decisions>
     <decisions>
         <name>Is_Account_Id</name>
         <label>Is Account Id</label>
@@ -61,11 +102,8 @@
     <decisions>
         <name>Is_Account_Id_Specified</name>
         <label>Is Account Id Specified</label>
-        <locationX>737</locationX>
+        <locationX>671</locationX>
         <locationY>158</locationY>
-        <defaultConnector>
-            <targetReference>Mister_MisticsZaebalsosed</targetReference>
-        </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Is_recoirdId_specified</name>
@@ -123,31 +161,6 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Is_Record_Empty_Decision_0</name>
-        <label>Is Record Empty Decision</label>
-        <locationX>1150</locationX>
-        <locationY>518</locationY>
-        <defaultConnector>
-            <targetReference>Create_Opportunity</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Is_Record_Empty_0</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Account</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Create_Account_0</targetReference>
-            </connector>
-            <label>Is Record Empty</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>Is_Record_Empty_Decision_0_0</name>
         <label>Is Record Empty Decision</label>
         <locationX>446</locationX>
@@ -193,6 +206,23 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Account</name>
+        <label>Create Account</label>
+        <locationX>193</locationX>
+        <locationY>1646</locationY>
+        <connector>
+            <targetReference>Set_Account_Id_In_Oppotunity_0</targetReference>
+        </connector>
+        <inputReference>Account</inputReference>
+    </recordCreates>
+    <recordCreates>
+        <name>Save_Opportunity_0</name>
+        <label>Save Opportunity</label>
+        <locationX>325</locationX>
+        <locationY>1982</locationY>
+        <inputReference>Opportunity</inputReference>
+    </recordCreates>
     <recordLookups>
         <name>Get_Case_By_Id</name>
         <label>Get Case By Id</label>
@@ -214,27 +244,6 @@
         <object>Case</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <screens>
-        <name>Create_Account_0</name>
-        <label>Create Account</label>
-        <locationX>1018</locationX>
-        <locationY>638</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Create_Opportunity</targetReference>
-        </connector>
-        <fields>
-            <name>Account_Name_0</name>
-            <dataType>String</dataType>
-            <fieldText>Account Name</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
     <screens>
         <name>Create_Account_0_0</name>
         <label>Create Account</label>
@@ -259,8 +268,8 @@
     <screens>
         <name>Create_Opportunity</name>
         <label>Create Opportunity</label>
-        <locationX>737</locationX>
-        <locationY>1382</locationY>
+        <locationX>325</locationX>
+        <locationY>1286</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -280,33 +289,41 @@
     <screens>
         <name>Create_Product</name>
         <label>Create Product</label>
-        <locationX>737</locationX>
-        <locationY>1502</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>Detect_Account_0</name>
-        <label>Detect Account</label>
-        <locationX>1150</locationX>
-        <locationY>398</locationY>
+        <locationX>325</locationX>
+        <locationY>1406</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Is_Record_Empty_Decision_0</targetReference>
+            <targetReference>Do_Need_Create_Account</targetReference>
         </connector>
         <fields>
-            <name>accountResearch_0</name>
-            <extensionName>c:accountResearch</extensionName>
+            <name>Product_Block</name>
+            <extensionName>c:productsBlock</extensionName>
             <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>Product</name>
+                <value>
+                    <elementReference>Product</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>Products</name>
+                <value>
+                    <elementReference>Products</elementReference>
+                </value>
+            </inputParameters>
             <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <outputParameters>
+                <assignToReference>Product</assignToReference>
+                <name>Product</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>Products</assignToReference>
+                <name>Products</name>
+            </outputParameters>
         </fields>
-        <showFooter>false</showFooter>
+        <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <screens>
@@ -324,38 +341,23 @@
             <name>accountResearch_0_0</name>
             <extensionName>c:accountResearch</extensionName>
             <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>Account</name>
+                <value>
+                    <elementReference>Account</elementReference>
+                </value>
+            </inputParameters>
             <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <outputParameters>
+                <assignToReference>Account</assignToReference>
+                <name>Account</name>
+            </outputParameters>
         </fields>
         <showFooter>false</showFooter>
         <showHeader>true</showHeader>
     </screens>
-    <screens>
-        <name>Mister_MisticsZaebalsosed</name>
-        <label>Mister Mistics</label>
-        <locationX>1150</locationX>
-        <locationY>278</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Detect_Account_0</targetReference>
-        </connector>
-        <fields>
-            <name>Mister_Mistics</name>
-            <dataType>String</dataType>
-            <defaultValue>
-                <stringValue>Mister Mistics</stringValue>
-            </defaultValue>
-            <fieldText>Mister Mistics</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
     <start>
-        <locationX>611</locationX>
+        <locationX>545</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Is_Account_Id_Specified</targetReference>
@@ -377,6 +379,30 @@
         <isInput>true</isInput>
         <isOutput>true</isOutput>
         <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <name>Opportunity</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>Product</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>OpportunityLineItem</objectType>
+    </variables>
+    <variables>
+        <name>Products</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>OpportunityLineItem</objectType>
     </variables>
     <variables>
         <name>recordId</name>

@@ -22,13 +22,9 @@
 
         console.log(cmp.get("v.processing"));
         console.log(cmp.get("v.accountName"));
- 
-        console.log('1');
-
+        
         action.setCallback(this, function(res) {
             if (action.getState() === "SUCCESS") {
-                console.log('2');
-
                 cmp.set("v.record", res.getReturnValue());
 
                 console.log(cmp.get("v.record"));
@@ -36,12 +32,9 @@
                 cmp.set("v.noFound", false);
                 helper.showToast("Success", "Account was found");
             } else {
-                console.log('3');
                 helper.showToast("Error", "Error dering attempt to find account");
             }
             cmp.set("v.processing", false);
-            console.log(res);
-            console.log('4');
         });
         $A.enqueueAction(action);
     },
