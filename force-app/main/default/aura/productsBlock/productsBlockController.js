@@ -37,8 +37,7 @@
 
         let product = cmp.get("v.Product");
         let products = cmp.get("v.Products");
-
-        
+        cmp.set("v.isEmpty", false);
 
         let getPriceBookAction = cmp.get("c.getPricebookEntry");
         getPriceBookAction.setCallback(this, function(response) {

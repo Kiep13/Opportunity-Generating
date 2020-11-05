@@ -21,14 +21,14 @@
 
   <hr class="line"/>
 
-  <div class="actionButtons">
-    <lightning:button aura:id="FINISH" label="Cancel"
-      variant="brand" onclick="{!c.onCancelPressed}"/>
-    <lightning:button aura:id="NEXT" label="Create new Account"
-      variant="brand" onclick="{!c.onCreatePressed}"/>
-    <lightning:button aura:id="NEXT" label="Confirm Account"
+  <span>
+    <lightning:button aura:id="NEXT" label="Confirm Account" class="actionButton"
       variant="brand" disabled="{!v.noFound}" onclick="{!c.onConfirmPressed}"/>
-  </div>
+    <lightning:button aura:id="NEXT" label="Create new Account" class="actionButton"
+      variant="brand" onclick="{!c.onCreatePressed}"/>
+    <lightning:button aura:id="FINISH" label="Cancel" class="actionButton"
+      variant="brand" onclick="{!c.onCancelPressed}"/>
+  </span>
 
   <lightning:flow aura:id="flowData" />
 </aura:component>
