@@ -1,9 +1,14 @@
 ({
     init : function(cmp, event, helper) {
+        var actions = [
+            { label: 'Delete', name: 'delete' }
+        ];
+
         cmp.set('v.columns', [
             {label: 'Opportunity Product Name', fieldName: 'Name', type: 'text'},
             {label: 'Total Price', fieldName: 'TotalPrice', type: 'currency'},
             {label: 'Quantity', fieldName: 'Quantity', type: 'number'},
+            { type: 'action', typeAttributes: { rowActions: actions, menuAlignment: 'right' } }
         ]);
 
         let getProductAction = cmp.get("c.createProduct");
@@ -64,5 +69,22 @@
         });
 
         $A.enqueueAction(getPriceBookAction);
+    },
+
+    handleRowAction: function (cmp, event, helper) {
+        var action = event.getParam('action');
+        var row = event.getParam('row');
+        switch (action.name) {
+            case 'delete': {
+                var rows = cmp.get('v.Products');
+                var rowIndex = rows.indexOf(row);
+                rows.splice(rowIndex, 1);
+                cmp.set('v.Products', rows);
+
+                if(rows.length == 0) {
+                    cmp.set("v.isEmpty", true);  
+                }
+            } break;
+        }
     }
 })

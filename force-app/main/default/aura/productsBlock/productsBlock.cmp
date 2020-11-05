@@ -23,7 +23,7 @@
   </lightning:card>
 
   <aura:if isTrue="{!v.isEmpty}">
-    True
+    Don't have items to display
     <aura:set attribute="else">
       <lightning:card title="Products">
         <div class="slds-p-horizontal--small">
@@ -31,7 +31,8 @@
           keyField="id"
           data="{! v.Products }"
           columns="{! v.columns }"
-          hideCheckboxColumn="true"/>
+          hideCheckboxColumn="true"
+          onrowaction="{! c.handleRowAction }"/>
         </div>
       </lightning:card>
     </aura:set>
