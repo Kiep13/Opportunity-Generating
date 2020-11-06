@@ -1,13 +1,6 @@
 ({
     init : function(cmp, event, helper) {
         var availableActions = cmp.get('v.availableActions');
-        for (var i = 0; i < availableActions.length; i++) {
-           if (availableActions[i] == "FINISH") {
-             cmp.set("v.canFinish", true);
-           } else if (availableActions[i] == "NEXT") {
-             cmp.set("v.canNext", true);
-           }
-        }
      },
 
     submitAccountName : function(cmp, event, helper) {
@@ -38,13 +31,7 @@
         });
         $A.enqueueAction(action);
     },
-
-    onCancelPressed: function(cmp, event, helper) {
-        var actionClicked = event.getSource().getLocalId();
-        var navigate = cmp.get('v.navigateFlow');
-        navigate(actionClicked);
-    },
-
+    
     onCreatePressed: function(cmp, event, helper) {
         var navigate = cmp.get('v.navigateFlow');
         navigate('NEXT');

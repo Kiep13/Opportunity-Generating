@@ -9,11 +9,11 @@
   <aura:handler  name="init" value="{!this}" action="{!c.init}"/>
 
   <lightning:card title="Create Product">
-    <div class="slds-p-horizontal--small">
+    <div>
       <lightning:input aura:id="field" label="Product Name" 
                     value="{!v.Product.Name}" required="true"/>
       <lightning:input aura:id="field" type="number" 
-                    label="Total Price" value="{!v.Product.TotalPrice}" 
+                    label="Total Price" value="{!v.Product.UnitPrice}" 
                     formatter="currency" step="0.01" min="0.01" required="true"/>
       <lightning:input aura:id="field" type="number" 
                     label="Quantity" value="{!v.Product.Quantity}" 
@@ -26,7 +26,7 @@
     Don't have items to display
     <aura:set attribute="else">
       <lightning:card title="Products">
-        <div class="slds-p-horizontal--small">
+        <div>
           <lightning:datatable
           keyField="id"
           data="{! v.Products }"

@@ -6,7 +6,7 @@
 
         cmp.set('v.columns', [
             {label: 'Opportunity Product Name', fieldName: 'Name', type: 'text'},
-            {label: 'Total Price', fieldName: 'TotalPrice', type: 'currency'},
+            {label: 'Unit Price', fieldName: 'UnitPrice', type: 'currency'},
             {label: 'Quantity', fieldName: 'Quantity', type: 'number'},
             { type: 'action', typeAttributes: { rowActions: actions, menuAlignment: 'right' } }
         ]);

@@ -1,0 +1,5 @@
+<aura:component implements="force:lightningQuickAction, lightning:availableForFlowScreens, lightning:availableForFlowActions">
+   <aura:attribute name="recordId" type="String" />
+   <h3>Operation completed successfully!</h3>
+   <lightning:button label="Go to new Opportunity" variant="brand" onclick="{!c.redirect}"/>
+</aura:component>

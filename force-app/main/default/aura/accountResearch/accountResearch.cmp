@@ -26,8 +26,6 @@
       variant="brand" disabled="{!v.noFound}" onclick="{!c.onConfirmPressed}"/>
     <lightning:button aura:id="NEXT" label="Create new Account" class="actionButton"
       variant="brand" onclick="{!c.onCreatePressed}"/>
-    <lightning:button aura:id="FINISH" label="Cancel" class="actionButton"
-      variant="brand" onclick="{!c.onCancelPressed}"/>
   </span>
 
   <lightning:flow aura:id="flowData" />

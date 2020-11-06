@@ -329,6 +329,9 @@
         <label>Create records</label>
         <locationX>325</locationX>
         <locationY>2678</locationY>
+        <connector>
+            <targetReference>Success</targetReference>
+        </connector>
         <inputReference>ListForCreate</inputReference>
     </recordCreates>
     <recordLookups>
@@ -383,7 +386,7 @@
         <locationY>1406</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
+        <allowPause>false</allowPause>
         <connector>
             <targetReference>Create_Product_Screen</targetReference>
         </connector>
@@ -398,7 +401,7 @@
             <name>Close_Date</name>
             <dataType>Date</dataType>
             <defaultValue>
-                <elementReference>$System.OriginDateTime</elementReference>
+                <elementReference>$Flow.CurrentDate</elementReference>
             </defaultValue>
             <fieldText>Close Date</fieldText>
             <fieldType>InputField</fieldType>
@@ -422,7 +425,7 @@
         <locationY>1526</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
+        <allowPause>false</allowPause>
         <connector>
             <targetReference>Do_Need_Create_Account</targetReference>
         </connector>
@@ -481,6 +484,30 @@
                 <assignToReference>Account</assignToReference>
                 <name>Account</name>
             </outputParameters>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Success</name>
+        <label>Success</label>
+        <locationX>325</locationX>
+        <locationY>2798</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Success_Message</name>
+            <extensionName>c:redirectComponent</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>Opportunity.Id</elementReference>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <showFooter>false</showFooter>
         <showHeader>true</showHeader>
