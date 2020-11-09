@@ -1,33 +1,44 @@
 ({
     init : function(cmp, event, helper) {
-        var availableActions = cmp.get('v.availableActions');
-     },
+        cmp.set('v.columns', [
+            {label: 'Name', fieldName: 'Name', type: 'text'},
+            {label: 'Action', type: 'button',typeAttributes: {
+                    label: 'Choose',
+                    name: 'chooseAccount'
+                }
+            }
+        ]);
+
+        let initAccountsAction = cmp.get("c.initAccounts");
+        initAccountsAction.setCallback(this, function(response) {
+            let state = response.getState();
+            if (state === "SUCCESS") {
+                cmp.set("v.accounts", response.getReturnValue());
+            }
+        });
+        $A.enqueueAction(initAccountsAction);
+    },
 
     submitAccountName : function(cmp, event, helper) {
-        cmp.set("v.processing", true);
-
         let name = cmp.get("v.accountName");
 
-        let action = cmp.get("c.findAccountByName");
+        let action = cmp.get("c.findAccountsByName");
         action.setParams({ 
            name: name
         });
-
-        console.log(cmp.get("v.processing"));
-        console.log(cmp.get("v.accountName"));
         
-        action.setCallback(this, function(res) {
+        action.setCallback(this, function(response) {
             if (action.getState() === "SUCCESS") {
-                cmp.set("v.record", res.getReturnValue());
+                console.log(response.getReturnValue());
+                cmp.set("v.accounts", response.getReturnValue());
 
-                console.log(cmp.get("v.record"));
+                cmp.set("v.isEmpty", response.getReturnValue().size > 0);
 
                 cmp.set("v.noFound", false);
-                helper.showToast("Success", "Account was found");
+                helper.showToast("Success", "Accounts was found");
             } else {
-                helper.showToast("Error", "Error dering attempt to find account");
+                helper.showToast("Error", "Error during attempt to find accounts");
             }
-            cmp.set("v.processing", false);
         });
         $A.enqueueAction(action);
     },
@@ -38,10 +49,14 @@
     },
 
     onConfirmPressed: function(cmp, event, helper) {
-        cmp.set("v.greeting", 'viluka'); 
-        cmp.set("v.Account", cmp.get("v.record")); 
-
         var navigate = cmp.get('v.navigateFlow');
         navigate('NEXT');
-    }
+    }, 
+
+    chooseAccount: function(cmp, event, helper){
+        var row = event.getParam('row');
+        cmp.set("v.Account", row); 
+        var navigate = cmp.get('v.navigateFlow');
+        navigate('NEXT');
+    },
 })

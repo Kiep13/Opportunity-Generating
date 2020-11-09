@@ -1,10 +1,11 @@
 <aura:component access="global" implements="lightning:availableForFlowScreens" controller="AccountResearch">
 
   <aura:attribute name="Account" type="Account" default="" access="global"/>
+  <aura:attribute name="accounts" type="List" default=""/>
+  <aura:attribute name="columns" type="List"/>
   <aura:attribute name="accountName" type="String" default=""/>
-  <aura:attribute name="processing" type="boolean" default="false"/>
   <aura:attribute name="noFound" type="boolean" default="true"/>
-  <aura:attribute name="record" type="Integer" default="true"/>
+  <aura:attribute name="isEmpty" type="Boolean"  default="True"/>
 
   <aura:handler  name="init" value="{!this}" action="{!c.init}"/>
 
@@ -14,16 +15,24 @@
     <lightning:button aura:id="find" label="Find" class="researchButton"
                       variant="brand" onclick="{!c.submitAccountName}"/>
   </div>
-  
-  <aura:if isTrue="{ !v.processing }">
-    <p>Processing your request</p>
-  </aura:if>
+
+  <aura:if isTrue="{!v.isEmpty}">
+    Don't have items to display
+    <aura:set attribute="else">
+      <lightning:datatable data="{!v.accounts}"
+                       columns="{!v.columns}"
+                       keyField="Id"
+                       hideCheckboxColumn="true"
+                       showRowNumberColumn="false"
+                       onrowaction="{!c.chooseAccount}"/>
+    </aura:set>
+  </aura:if> 
 
   <hr class="line"/>
 
   <span>
-    <lightning:button aura:id="NEXT" label="Confirm Account" class="actionButton"
-      variant="brand" disabled="{!v.noFound}" onclick="{!c.onConfirmPressed}"/>
+    <!-- <lightning:button aura:id="NEXT" label="Confirm Account" class="actionButton"
+      variant="brand" disabled="{!v.noFound}" onclick="{!c.onConfirmPressed}"/> -->
     <lightning:button aura:id="NEXT" label="Create new Account" class="actionButton"
       variant="brand" onclick="{!c.onCreatePressed}"/>
   </span>
