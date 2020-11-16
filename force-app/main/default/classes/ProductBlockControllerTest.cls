@@ -1,6 +1,8 @@
 @IsTest
 public with sharing class ProductBlockControllerTest {
 
+    private static String TEST_PRODUCT_NAME = 'Test name';
+
     private static String INVALID_PRODUCT = 'Expected product to not be null';
     private static String INVALID_AMOUNT = 'Expected get 0 products';
     private static String INVALID_PRICEBOOK = 'Expected pricebook to not be null';
@@ -30,7 +32,7 @@ public with sharing class ProductBlockControllerTest {
     @IsTest
     static void getPricebookEntryTest() {
         try {
-            PricebookEntry pricebook = ProductBlockController.getPricebookEntry();
+            List<PricebookEntry> items = ProductBlockController.getPricebookEntries();
         } catch (Exception e) {
             System.assertEquals('System.QueryException', e.getTypeName(),
                     'Expected exception with type System.QueryException, but got ' + e.getTypeName());

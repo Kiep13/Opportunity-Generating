@@ -2,6 +2,7 @@
 
   <aura:attribute name="Product" type="OpportunityLineItem" default="" access="global"/>
   <aura:attribute name="Products" type="OpportunityLineItem[]" default="" access="global"/>
+  <aura:attribute name="Entries" type="PricebookEntry[]" default="" access="global"/>
 
   <aura:attribute name="columns" type="List"/>
   <aura:attribute name="isEmpty" type="Boolean"  default="True"/>
@@ -10,8 +11,11 @@
 
   <lightning:card title="Create Product">
     <div>
-      <lightning:input aura:id="field" label="Product Name" 
-                    value="{!v.Product.Name}" required="true"/>
+      <lightning:select name="products" label="Choose product entry" required="true" value="{!v.Product.PricebookEntryId}">
+        <aura:iteration items="{!v.Entries}" var="Entry">
+          <option value="{!Entry.Id}">{!Entry.Name}</option>
+        </aura:iteration>
+      </lightning:select>
       <lightning:input aura:id="field" type="number" 
                     label="Total Price" value="{!v.Product.UnitPrice}" 
                     formatter="currency" step="0.01" min="0.01" required="true"/>

@@ -3,6 +3,7 @@
         helper.initColumns(cmp);
         helper.initProduct(cmp);
         helper.initListProducts(cmp);
+        helper.initPricebookEntries(cmp);
     },
     
     handleSaveProduct : function(cmp, event, helper) {

@@ -34,36 +34,35 @@
         $A.enqueueAction(getListAction);
     },
 
+    initPricebookEntries : function(cmp) {
+        let getEntriesAction = cmp.get("c.getPricebookEntries");
+        getEntriesAction.setCallback(this, function(response) {
+            let state = response.getState();
+
+            if (state === "SUCCESS") {
+                cmp.set("v.Entries", response.getReturnValue());
+            }
+        });
+        $A.enqueueAction(getEntriesAction);
+    },
+
     addProduct : function(cmp) {
         let product = cmp.get("v.Product");
         let products = cmp.get("v.Products");
         cmp.set("v.isEmpty", false);
 
-        let getPriceBookAction = cmp.get("c.getPricebookEntry");
-        getPriceBookAction.setCallback(this, function(response) {
+        products.push(product);
+        cmp.set("v.Products", products);
+
+        let getProductAction = cmp.get("c.createProduct");
+        getProductAction.setCallback(this, function(response) {
             let state = response.getState();
             if (state === "SUCCESS") {
-
-                product.PricebookEntryId = response.getReturnValue().Id;
-                console.log(response.getReturnValue().Id);
-
-                products.push(product);
-                cmp.set("v.Products", products);
-
-                let getProductAction = cmp.get("c.createProduct");
-                getProductAction.setCallback(this, function(response) {
-                    let state = response.getState();
-                    if (state === "SUCCESS") {
-                        cmp.set("v.Product", response.getReturnValue());
-                    }
-                });
-
-                $A.enqueueAction(getProductAction);
-
+                cmp.set("v.Product", response.getReturnValue());
             }
         });
 
-        $A.enqueueAction(getPriceBookAction);
+        $A.enqueueAction(getProductAction);
     },
 
     deleteProduct : function(cmp, event) {

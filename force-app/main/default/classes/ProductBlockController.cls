@@ -10,7 +10,7 @@ public with sharing class ProductBlockController {
     }
 
     @AuraEnabled
-    public static PricebookEntry getPricebookEntry() {
-        return [ SELECT Id FROM PricebookEntry LIMIT 1 ];
+    public static List<PricebookEntry> getPricebookEntries() {
+        return [SELECT Id, Name FROM PricebookEntry];
     }
 }
