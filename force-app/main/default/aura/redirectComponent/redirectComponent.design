@@ -1,3 +1,3 @@
-<design:component>
+<design:component label="Redirect to Opportunity">
    <design:attribute name="recordId" label="Opportunity ID" />
 </design:component>

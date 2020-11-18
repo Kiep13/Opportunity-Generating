@@ -6,6 +6,8 @@
   <aura:attribute name="Entries" type="PricebookEntry[]" default="" access="global"/>
   <aura:attribute name="selectedEntryId" type="PricebookEntry" default="" access="global"/>
 
+  <aura:attribute name="selectedBookId" type="String" default="" access="global"/>
+
   <aura:attribute name="columns" type="List"/>
   <aura:attribute name="isEmpty" type="Boolean"  default="True"/>
 

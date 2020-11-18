@@ -1,0 +1,3 @@
+<design:component label="Select Pricebook">
+   <design:attribute name="selectedBookId" label="Selected Procebook Id" />
+</design:component>

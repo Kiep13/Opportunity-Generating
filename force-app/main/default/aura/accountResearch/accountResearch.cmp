@@ -31,8 +31,6 @@
   <hr class="line"/>
 
   <span>
-    <!-- <lightning:button aura:id="NEXT" label="Confirm Account" class="actionButton"
-      variant="brand" disabled="{!v.noFound}" onclick="{!c.onConfirmPressed}"/> -->
     <lightning:button aura:id="NEXT" label="Create new Account" class="actionButton"
       variant="brand" onclick="{!c.onCreatePressed}"/>
   </span>

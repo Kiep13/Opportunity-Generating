@@ -1,0 +1,15 @@
+<aura:component access="global"  implements="lightning:availableForFlowScreens" controller="ProductBlockController">
+
+  <aura:attribute name="Books" type="Pricebook2[]" default="" access="global"/>
+  <aura:attribute name="selectedBookId" type="String" default="" access="global"/>
+
+  <aura:handler  name="init" value="{!this}" action="{!c.init}"/>
+
+  <lightning:select label="Select pricebook" 
+                    required="true" 
+                    value="{!v.selectedBookId}">
+    <aura:iteration items="{!v.Books}" var="Book">
+      <option value="{!Book.Id}">{!Book.Name}</option>
+    </aura:iteration>
+  </lightning:select>
+</aura:component>	

@@ -10,8 +10,12 @@ public with sharing class ProductBlockController {
     }
 
     @AuraEnabled
-    public static List<PricebookEntry> getPricebookEntries() {
-        Pricebook2 standardBook = [SELECT Id FROM Pricebook2 WHERE IsStandard = true];
-        return [SELECT Id, Name FROM PricebookEntry WHERE Pricebook2Id = :standardBook.Id];
+    public static List<Pricebook2> getPricebooks() {
+        return [SELECT Id, Name FROM Pricebook2];
+    }
+
+    @AuraEnabled
+    public static List<PricebookEntry> getPricebookEntries(String pricebookId) {
+        return [SELECT Id, Name FROM PricebookEntry WHERE Pricebook2Id = :pricebookId];
     }
 }

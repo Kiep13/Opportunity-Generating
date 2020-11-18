@@ -38,10 +38,19 @@
 
     initPricebookEntries : function(cmp) {
         let getEntriesAction = cmp.get("c.getPricebookEntries");
+
+        const selectedBookId = cmp.get("v.selectedBookId");
+        getEntriesAction.setParams({ "pricebookId" : selectedBookId});
+
         getEntriesAction.setCallback(this, function(response) {
             let state = response.getState();
 
+            console.log(state);
+
             if (state === "SUCCESS") {
+
+                console.log(response.getReturnValue());
+
                 cmp.set("v.Entries", response.getReturnValue());
                 cmp.set("v.selectedEntryId", (response.getReturnValue())[0].Id)
             }
