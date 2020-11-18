@@ -2,7 +2,9 @@
 
   <aura:attribute name="Product" type="OpportunityLineItem" default="" access="global"/>
   <aura:attribute name="Products" type="OpportunityLineItem[]" default="" access="global"/>
+  <aura:attribute name="displayProducts" type="Object[]" default="" access="global"/>
   <aura:attribute name="Entries" type="PricebookEntry[]" default="" access="global"/>
+  <aura:attribute name="selectedEntryId" type="PricebookEntry" default="" access="global"/>
 
   <aura:attribute name="columns" type="List"/>
   <aura:attribute name="isEmpty" type="Boolean"  default="True"/>
@@ -11,13 +13,15 @@
 
   <lightning:card title="Create Product">
     <div>
-      <lightning:select name="products" label="Choose product entry" required="true" value="{!v.Product.PricebookEntryId}">
+      <lightning:select name="products" label="Choose product entry" 
+                        required="true" 
+                        value="{!v.selectedEntryId}">
         <aura:iteration items="{!v.Entries}" var="Entry">
           <option value="{!Entry.Id}">{!Entry.Name}</option>
         </aura:iteration>
       </lightning:select>
       <lightning:input aura:id="field" type="number" 
-                    label="Total Price" value="{!v.Product.UnitPrice}" 
+                    label="Unit Price" value="{!v.Product.UnitPrice}" 
                     formatter="currency" step="0.01" min="0.01" required="true"/>
       <lightning:input aura:id="field" type="number" 
                     label="Quantity" value="{!v.Product.Quantity}" 
@@ -33,7 +37,7 @@
         <div>
           <lightning:datatable
           keyField="id"
-          data="{! v.Products }"
+          data="{! v.displayProducts }"
           columns="{! v.columns }"
           hideCheckboxColumn="true"
           onrowaction="{! c.handleRowAction }"/>

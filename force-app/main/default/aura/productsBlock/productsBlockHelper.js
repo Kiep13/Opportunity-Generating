@@ -5,7 +5,7 @@
         ];
 
         cmp.set('v.columns', [
-            {label: 'Opportunity Product Name', fieldName: 'Name', type: 'text'},
+            {label: 'Product Name', fieldName: 'Name', type: 'text'},
             {label: 'Unit Price', fieldName: 'UnitPrice', type: 'currency'},
             {label: 'Quantity', fieldName: 'Quantity', type: 'number'},
             { type: 'action', typeAttributes: { rowActions: actions, menuAlignment: 'right' } }
@@ -32,6 +32,8 @@
             }
         });
         $A.enqueueAction(getListAction);
+
+        cmp.set("v.displayProducts", []);
     },
 
     initPricebookEntries : function(cmp) {
@@ -41,24 +43,41 @@
 
             if (state === "SUCCESS") {
                 cmp.set("v.Entries", response.getReturnValue());
+                cmp.set("v.selectedEntryId", (response.getReturnValue())[0].Id)
             }
         });
         $A.enqueueAction(getEntriesAction);
     },
 
     addProduct : function(cmp) {
-        let product = cmp.get("v.Product");
-        let products = cmp.get("v.Products");
+        const product = cmp.get("v.Product");
+        const products = cmp.get("v.Products");
+        const displayProducts = cmp.get("v.displayProducts");
         cmp.set("v.isEmpty", false);
 
+        const selectedEntryId = cmp.get("v.selectedEntryId");
+        const entries = cmp.get("v.Entries");
+        const entry = entries.filter((entry) => {
+            return entry.Id == selectedEntryId
+        })[0];
+
+        product.PricebookEntryId = entry.Id;
         products.push(product);
         cmp.set("v.Products", products);
+
+        displayProducts.push({
+            Name: entry.Name,
+            UnitPrice: product.UnitPrice,
+            Quantity: product.Quantity
+        });
+        cmp.set("v.displayProducts", displayProducts);
 
         let getProductAction = cmp.get("c.createProduct");
         getProductAction.setCallback(this, function(response) {
             let state = response.getState();
             if (state === "SUCCESS") {
                 cmp.set("v.Product", response.getReturnValue());
+                cmp.set("v.selectedEntryId", entries[0].Id);
             }
         });
 
@@ -69,11 +88,15 @@
         var action = event.getParam('action');
         var row = event.getParam('row');
         switch (action.name) {
-            case 'delete': {
-                var rows = cmp.get('v.Products');
-                var rowIndex = rows.indexOf(row);
+            case "delete": {
+                let rows = cmp.get("v.displayProducts");
+                const rowIndex = rows.indexOf(row);
                 rows.splice(rowIndex, 1);
-                cmp.set('v.Products', rows);
+                cmp.set("v.displayProducts", rows);
+
+                let products = cmp.get('v.Products');
+                products.splice(rowIndex, 1);
+                cmp.get("v.Products", products);
 
                 if(rows.length == 0) {
                     cmp.set("v.isEmpty", true);  
