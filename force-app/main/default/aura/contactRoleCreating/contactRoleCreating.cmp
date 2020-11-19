@@ -1,5 +1,5 @@
 <aura:component access="global" implements="lightning:availableForFlowScreens" controller="ContactResearch">
-  <aura:attribute name="contacts" type="Contact[]" default=""/>
+  <aura:attribute name="contacts" type="Contact[]" default="" access="global"/>
   <aura:attribute name="contactsRoles" type="OpportunityContactRole[]" default=""/>
   <aura:attribute name="roles" type="String[]" default="[]"/>
 

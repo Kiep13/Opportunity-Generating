@@ -36,8 +36,8 @@ public with sharing class ContactReserachTest {
     }
 
     @IsTest
-    public static void createOpportuntuContactRoles() {
-        List<OpportunityContactRole> contactsRoles = ContactResearch.createOpportuntuContactRoles();
+    public static void createOpportunityContactRoles() {
+        List<OpportunityContactRole> contactsRoles = ContactResearch.createOpportunityContactRoles();
         System.assertEquals(0, contactsRoles.size(), INVALID_LIST_SIZE);
     }
 

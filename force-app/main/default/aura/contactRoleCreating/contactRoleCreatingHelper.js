@@ -27,7 +27,10 @@
     },
 
     initСontactsRoles : function(cmp) {
-        const createListAction = cmp.get("c.createOpportuntuContactRoles");
+        console.log(2);
+        const createListAction = cmp.get("c.createOpportunityContactRoles");
+        console.log(1);
+
         createListAction.setCallback(this, function(response) {
             let state = response.getState();
             if (state === "SUCCESS") {

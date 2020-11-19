@@ -17,7 +17,7 @@ public with sharing class ContactResearch {
     }
 
     @AuraEnabled(Cacheable=False)
-    public static List<OpportunityContactRole> createOpportuntuContactRoles() {
+    public static List<OpportunityContactRole> createOpportunityContactRoles() {
         return new List<OpportunityContactRole>();
     }
 
