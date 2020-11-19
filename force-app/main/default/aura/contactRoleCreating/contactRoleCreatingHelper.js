@@ -14,7 +14,7 @@
     },
 
     initRoles : function(cmp) {
-        let getRolesAction = cmp.get("c.getRolesList");
+        const getRolesAction = cmp.get("c.getRolesList");
         getRolesAction.setCallback(this, function(response) {
             let state = response.getState();
             if (state === "SUCCESS") {
@@ -27,7 +27,7 @@
     },
 
     initСontactsRoles : function(cmp) {
-        let createListAction = cmp.get("c.createOpportuntuContactRoles");
+        const createListAction = cmp.get("c.createOpportuntuContactRoles");
         createListAction.setCallback(this, function(response) {
             let state = response.getState();
             if (state === "SUCCESS") {
@@ -60,5 +60,56 @@
             }
         });
         $A.enqueueAction(createListAction);
+    },
+
+    editContactRole : function(cmp, event) {
+        const row = event.getParam('row');
+
+        const rows = cmp.get("v.displayesContactsRoles");
+        const rowIndex = rows.indexOf(row);
+        row.rowIndex = rowIndex;
+
+        cmp.set("v.editContactRole", row);
+        cmp.set("v.editTitle", "Select Role for " + row.Name);
+        cmp.set("v.isEdit", true);
+
+        console.log(cmp.get("v.editContactRole"));
+    },
+
+    updateContactRole : function(cmp) {
+        const editContactRole = cmp.get("v.editContactRole");
+        const rowIndex = editContactRole.rowIndex;
+
+        console.log(editContactRole.IsPrimary);
+
+        let contactsRoles = cmp.get("v.contactsRoles");
+        let displayesContactsRoles = cmp.get("v.displayesContactsRoles");
+
+        contactsRoles[rowIndex].Role = editContactRole.Role;
+        displayesContactsRoles[rowIndex].Role = editContactRole.Role;
+
+        if(editContactRole.IsPrimary == true) {
+            contactsRoles = contactsRoles.map((contactRole, index) => {
+                contactRole.IsPrimary = rowIndex == index;
+                return contactRole;
+            });
+
+            displayesContactsRoles = displayesContactsRoles.map((contactRole, index) => {
+                contactRole.IsPrimary = rowIndex == index;
+                return contactRole;
+            });
+        }
+
+        contactsRoles[rowIndex].IsPrimary = editContactRole.IsPrimary;
+        displayesContactsRoles[rowIndex].IsPrimary = editContactRole.IsPrimary;
+
+        cmp.set("v.contactsRoles", contactsRoles);
+        cmp.set("v.displayesContactsRoles", displayesContactsRoles);
+
+        this.closeEditForm(cmp);
+    },
+
+    closeEditForm : function(cmp) {
+        cmp.set("v.isEdit", false);
     },
 })

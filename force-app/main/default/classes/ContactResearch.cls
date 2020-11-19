@@ -8,18 +8,20 @@ public with sharing class ContactResearch {
     public static List<Contact> findContacts(String term) {
         List<Contact> contacts = new List<Contact>();
         if (term.length() > 0) {
-            List<List<SObject>> results = [FIND :term IN NAME FIELDS RETURNING Contact(Id, FirstName, LastName ORDER BY LastName, FirstName)];
-            contacts = (List<Contact>) results[0];
+            String searchTerm = '%' + term + '%';
+            contacts = [SELECT FirstName, LastName, Title, Phone, Email
+                    FROM Contact
+                    WHERE FirstName LIKE  :searchTerm OR LastName LIKE :searchTerm];
         }
         return contacts;
     }
 
-    @AuraEnabled
+    @AuraEnabled(Cacheable=False)
     public static List<OpportunityContactRole> createOpportuntuContactRoles() {
         return new List<OpportunityContactRole>();
     }
 
-    @AuraEnabled 
+    @AuraEnabled(Cacheable=False)
     public static List<String> getRolesList() {
         List<String> picklist= new List<String>();
 		Schema.DescribeFieldResult field = OpportunityContactRole.Role.getDescribe();

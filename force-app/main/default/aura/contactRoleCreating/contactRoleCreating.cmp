@@ -5,6 +5,7 @@
 
   <aura:attribute name="displayesContactsRoles" type="Object[]" default=""/>
   <aura:attribute name="editContactRole" type="Object" default=""/>
+  <aura:attribute name="editTitle" type="String" default=""/>
   <aura:attribute name="columns" type="List"/>
 
   <aura:attribute name="isEmpty" type="Boolean"  default="True"/>
@@ -13,17 +14,24 @@
   <aura:handler  name="init" value="{!this}" action="{!c.init}"/>
 
   <aura:if isTrue="{!v.isEdit}">
+    <lightning:card title="Editing Contact Role">
 
-    <lightning:select name="select1" label="Select Role" required="true" value="{!v.editContactRole.Role}">
-      <aura:iteration items="{!v.roles}" var="role">
-        <option value="{!role}">{!role}</option>
-      </aura:iteration>
-    </lightning:select>
-
-    <lightning:input type="checkbox" label="Is Primary Contact?" onchange="{! c.changePrimaryState }"/>
-
-    <lightning:button aura:id="find" label="Save changes"
-                      variant="brand" onclick="{!c.updateContactRole}"/>
+      <lightning:select label="{!v.editTitle}" required="true" value="{!v.editContactRole.Role}">
+        <aura:iteration items="{!v.roles}" var="role">
+          <option value="{!role}">{!role}</option>
+        </aura:iteration>
+      </lightning:select>
+  
+      <lightning:input type="checkbox" label="Is Primary Contact?"
+                        checked="{!v.editContactRole.IsPrimary}"/>
+  
+      <lightning:button label="Cancel" class="actionButton"
+                        variant="brand-outline"  onclick="{!c.closeEditForm}"/>
+  
+      <lightning:button label="Save changes" class="actionButton"
+                        variant="brand" onclick="{!c.updateContactRole}"/>
+      
+    </lightning:card>
   </aura:if> 
 
   <aura:if isTrue="{!v.isEmpty}">

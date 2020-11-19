@@ -2,6 +2,7 @@
   <aura:attribute name="Contacts" type="Contact[]" default=""/>
   <aura:attribute name="selectedContacts" type="Contact[]" default="" access="global"/>
   <aura:attribute name="columns" type="List"/>
+  <aura:attribute name="selectedColumns" type="List"/>
 
   <aura:attribute name="searchTerm" type="String" default="" access="global"/>
 
@@ -13,13 +14,14 @@
   <div>
     <lightning:input name="searchTerm" value="{! v.searchTerm }" label="Enter Name or Surname"/>
 
-    <lightning:button aura:id="find" label="Find" class="researchButton"
+    <lightning:button aura:id="find" label="Find" class="findButton"
                       variant="brand" onclick="{!c.submitSearch}"/>
   </div>
 
   <aura:if isTrue="{!v.isEmptyContacts}">
-    Don't have items to display
+    Don't have items to display<br/>
     <aura:set attribute="else">
+      Founded contacts
       <lightning:datatable data="{!v.Contacts}"
                        columns="{!v.columns}"
                        keyField="Id"
@@ -32,8 +34,9 @@
   <aura:if isTrue="{!v.isEmptySelected}">
     Don't have selected contacts
     <aura:set attribute="else">
+      Selected contacts
       <lightning:datatable data="{!v.selectedContacts}"
-                       columns="{!v.columns}"
+                       columns="{!v.selectedColumns}"
                        keyField="Id"
                        hideCheckboxColumn="true"
                        showRowNumberColumn="false"
