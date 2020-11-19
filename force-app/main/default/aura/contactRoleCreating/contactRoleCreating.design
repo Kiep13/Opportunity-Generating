@@ -1,0 +1,4 @@
+<design:component label="Contacts Role form">
+  <design:attribute name="contacts" label="Selected contacts" />
+  <design:attribute name="contactsRoles" label="Contacts roles" />
+</design:component>

@@ -1,0 +1,43 @@
+<aura:component access="global" implements="lightning:availableForFlowScreens" controller="ContactResearch">
+  <aura:attribute name="contacts" type="Contact[]" default=""/>
+  <aura:attribute name="contactsRoles" type="OpportunityContactRole[]" default=""/>
+  <aura:attribute name="roles" type="String[]" default="[]"/>
+
+  <aura:attribute name="displayesContactsRoles" type="Object[]" default=""/>
+  <aura:attribute name="editContactRole" type="Object" default=""/>
+  <aura:attribute name="columns" type="List"/>
+
+  <aura:attribute name="isEmpty" type="Boolean"  default="True"/>
+  <aura:attribute name="isEdit" type="Boolean"  default="False"/>
+
+  <aura:handler  name="init" value="{!this}" action="{!c.init}"/>
+
+  <aura:if isTrue="{!v.isEdit}">
+
+    <lightning:select name="select1" label="Select Role" required="true" value="{!v.editContactRole.Role}">
+      <aura:iteration items="{!v.roles}" var="role">
+        <option value="{!role}">{!role}</option>
+      </aura:iteration>
+    </lightning:select>
+
+    <lightning:input type="checkbox" label="Is Primary Contact?" onchange="{! c.changePrimaryState }"/>
+
+    <lightning:button aura:id="find" label="Save changes"
+                      variant="brand" onclick="{!c.updateContactRole}"/>
+  </aura:if> 
+
+  <aura:if isTrue="{!v.isEmpty}">
+    Don't have selected contacts
+    <aura:set attribute="else">
+      <lightning:datatable data="{!v.displayesContactsRoles}"
+                       columns="{!v.columns}"
+                       keyField="Id"
+                       hideCheckboxColumn="true"
+                       showRowNumberColumn="false"
+                       onrowaction="{!c.editContactRole}"/>
+    </aura:set>
+  </aura:if> 
+  
+
+  
+</aura:component>	

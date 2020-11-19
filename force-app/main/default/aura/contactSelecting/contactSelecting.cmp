@@ -1,0 +1,44 @@
+<aura:component access="global" implements="lightning:availableForFlowScreens" controller="ContactResearch">
+  <aura:attribute name="Contacts" type="Contact[]" default=""/>
+  <aura:attribute name="selectedContacts" type="Contact[]" default="" access="global"/>
+  <aura:attribute name="columns" type="List"/>
+
+  <aura:attribute name="searchTerm" type="String" default="" access="global"/>
+
+  <aura:attribute name="isEmptyContacts" type="Boolean"  default="True"/>
+  <aura:attribute name="isEmptySelected" type="Boolean"  default="True"/>
+
+  <aura:handler  name="init" value="{!this}" action="{!c.init}"/>
+
+  <div>
+    <lightning:input name="searchTerm" value="{! v.searchTerm }" label="Enter Name or Surname"/>
+
+    <lightning:button aura:id="find" label="Find" class="researchButton"
+                      variant="brand" onclick="{!c.submitSearch}"/>
+  </div>
+
+  <aura:if isTrue="{!v.isEmptyContacts}">
+    Don't have items to display
+    <aura:set attribute="else">
+      <lightning:datatable data="{!v.Contacts}"
+                       columns="{!v.columns}"
+                       keyField="Id"
+                       hideCheckboxColumn="true"
+                       showRowNumberColumn="false"
+                       onrowaction="{!c.chooseContact}"/>
+    </aura:set>
+  </aura:if> 
+
+  <aura:if isTrue="{!v.isEmptySelected}">
+    Don't have selected contacts
+    <aura:set attribute="else">
+      <lightning:datatable data="{!v.selectedContacts}"
+                       columns="{!v.columns}"
+                       keyField="Id"
+                       hideCheckboxColumn="true"
+                       showRowNumberColumn="false"
+                       onrowaction="{!c.deleteContact}"/>
+    </aura:set>
+  </aura:if> 
+
+</aura:component>	

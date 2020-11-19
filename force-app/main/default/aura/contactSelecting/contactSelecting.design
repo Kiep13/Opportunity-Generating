@@ -1,0 +1,3 @@
+<design:component label="Contacts form">
+  <design:attribute name="selectedContacts" label="Selected contacts" />
+</design:component>
